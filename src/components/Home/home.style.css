@@ -1,0 +1,24 @@
+.field{
+    border: unset
+}
+.field section{
+    display: block;
+}
+.radios-div{
+    display: flex;
+    flex-wrap: wrap;
+}
+.radio-cont{
+    margin: auto;
+    width: 48%;
+}
+.container{
+    width: 70%;
+    /* max-width: 800px; */
+}
+.btn{
+    display: block;
+    margin: auto;
+    width: 100px;
+    padding: 20px;
+}
