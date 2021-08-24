@@ -14,7 +14,7 @@ export const trips = {
 		"type": "Lady",
 		"driver_id": 13,
 		"driver_name": "Alize",
-		"driver_rating": 5,
+		"driver_rating": 2.5,
 		"driver_pic": "https://hr.hava.bz/trips/p13.jpg",
 		"car_make": "Honda",
 		"car_model": "Civic",

@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import useWindowSize from '../WindowSize';
 import './home.style.css';
 
 
 
-function Home() {
+function Home({ history }) {
 
-    const [keyword, setKeyword] = useState(null) 
+    const [keyword, setKeyword] = useState('') 
 
     const [includeCanceledTrips, shuffleIncludeCanceledTrips ] = useState(false)
 
@@ -13,24 +14,37 @@ function Home() {
 
     const [time, setTime] = useState('any')
 
+    let size = useWindowSize();
+
+    const handleSearch = () =>{
+        history.push({
+            pathname: '/search',
+            search:  "?" 
+            +new URLSearchParams({keyword: keyword}).toString()
+            + '&' +new URLSearchParams({type: includeCanceledTrips? "all" : "completed"}).toString()
+            + '&' +new URLSearchParams({distance: distance}).toString()
+            + '&' +new URLSearchParams({time: time}).toString()
+        })
+    }
+
   return (
-    <div className="main">
-        <div className="container">
-            <div className="head">
-                <h1>Trip Search</h1>
+    <div className={size.width > 500 ?"main" : "main mob-main"}>
+        <div className={size.width > 500 ?"container" : "container mob-container"}>
+            <div className="head" >
+                <h1 style={{textAlign: 'center'}}>Trip Search</h1>
             </div>
             <div>
-                <form>
+                <form className="formarea">
                     <div>
-                        <label>Keyword</label>
-                        <input onChange={(e)=>setKeyword(e.value)} type="text"   value={keyword} placeholder="Search here..."/>
+                        <label className="keyname">Keyword</label><br/>
+                        <input className="inputarea" onChange={(e)=>{setKeyword(e.target.value)}} type="text"   value={keyword} placeholder="Search here..."/>
 
                     </div>
                     <div>
-                        <input id="chk" type="checkbox" checked={includeCanceledTrips} onChange={()=>shuffleIncludeCanceledTrips(includeCanceledTrips? false : true)} value={includeCanceledTrips}/> 
+                        <input  id="chk" type="checkbox" checked={includeCanceledTrips} onChange={()=>shuffleIncludeCanceledTrips(includeCanceledTrips? false : true)} value={includeCanceledTrips}/> 
                         <label for="chk" >Include canceled trips</label>
                     </div>
-
+                    <br></br>
                     <div className="radios-div">
                         <div className="radio-cont">
                             <fieldset className="field" data-role="controlgroup_a">
@@ -85,8 +99,8 @@ function Home() {
                                 </fieldset>
 
                         </div>
-                        <div>
-                            <button className="btn">Search</button>
+                        <div className="btn-div">
+                            <button className="btn" onClick={()=>handleSearch()}>Search</button>
                         </div>
                     </div>
                 </form>

@@ -1,6 +1,3 @@
-import { faStar, faStarHalf, faStarHalfAlt, faStarOfDavid, faStarOfLife } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import FontAwesome from 'react-fontawesome';
 import './TripCard.style.css';
 
 function TripCard( { item }) {
@@ -15,16 +12,19 @@ function TripCard( { item }) {
 
 
     const generateRates = () => {
+
         const rateStars={
             fullStars: [],
             halfStars: [],
             NoStars: []
         }
         
+        let index = 0;
+
         if (rate === 10){
              for (let i = 0; i<5; i++){
                  rateStars.fullStars.push(
-                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i key = {index++} class="fa fa-star" aria-hidden="true"></i>
                  )
              }
             return rateStars;
@@ -33,7 +33,7 @@ function TripCard( { item }) {
         if (rate === 0 ){
             for (let i = 0; i<5; i++){
                 rateStars.NoStars.push(
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i key = {index++} class="fa fa-star-o" aria-hidden="true"></i>
                 )
             }
             return rateStars;
@@ -49,17 +49,17 @@ function TripCard( { item }) {
         //get full starts
         for (let i = 0; i < full_stars; i ++ ){
             rateStars.fullStars.push(
-                <i class="fa fa-star" aria-hidden="true"></i>
+                <i key = {index++} class="fa fa-star" aria-hidden="true"></i>
              )
         }
         for (let i = 0; i < empty_stars; i ++ ){
             rateStars.NoStars.push(
-                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i key = {index++} class="fa fa-star-o" aria-hidden="true"></i>
              )
         }
         for (let i = 0; i < half_stars; i ++ ){
             rateStars.halfStars.push(
-                <i class="fa fa-star-half-o" aria-hidden="true"></i> 
+                <i key = {index++} class="fa fa-star-half-o" aria-hidden="true"></i> 
             )
         }
 
@@ -70,7 +70,7 @@ function TripCard( { item }) {
     <div className="tripcard">
         <div>
             <section className="inlne ">
-                {date.getMonth()}/{date.getDay()}/{date.getFullYear()} {date.getHours()}:{date.getMinutes()} {date.getHours()>= 12 ? 'PM' : 'AM'}
+                {date.getMonth()}/{date.getDay()}/{date.getFullYear()} {date.getHours()} : {(date.getMinutes()+"").length<2 ? "0": ""}{date.getMinutes()} {date.getHours()>= 12 ? 'PM' : 'AM'}
             </section>
             <section className="inlne right">
                 {price}
@@ -98,10 +98,10 @@ function TripCard( { item }) {
             </section>
         </div>
         <div>
-            <section className="inlne right">
+            <section className="inlne right" style={{display: 'block', width: "100%"}}>
                 
             {complete? <section>Completed &nbsp;<i style={{color: "green", fontSize: "24px"}} class="fa fa-check" aria-hidden="true"></i></section> :
-             <section>Canceled &nbsp;<i style={{color: "red" , fontSize: "24px"}} class="fa fa-times" aria-hidden="true"></i></section>}
+             <section>Canceled &nbsp;<i style={{color: "red" , fontSize: "24px"}} class="fa fa-ban"></i></section>}
             </section>
         </div>
     </div> 
